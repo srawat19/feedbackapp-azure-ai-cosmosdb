@@ -1,6 +1,6 @@
 # ✅ Event Feedback App (.NET 8 + Azure App Service + Azure AI + Cosmos DB + Bicep)
 
-This is **.NET 8 Razor Pages** web application, deployed on **Azure App Service (Linux)** to collect real-time feedbacks from event/session attendees.
+This is a **.NET 8 Razor Pages** web application, deployed on **Azure App Service (Linux)** to collect real-time feedbacks from event/session attendees.
 
 The app leverages **Azure AI Text Analytics** to perform sentiment analysis on the feedback/comments which are viewable only to events' admin.
 Cosmos DB (SQL) is used to persist events comments and details.
