@@ -48,8 +48,27 @@ This project was developed to gain **hands-on experience in Azure PaaS services,
 
 ## 🧱 Project Architecture
 
-# User feedback flow 
+## High-Level Flow
+Users authenticate via **Azure AD** and submit feedback through the **.NET 8 Razor Pages app hosted on Azure App Service**.
+Participants can view the **real-time average rating** of current events.
+
+All feedback is securely stored in *Azure Cosmos DB (NoSQL)*, while *Azure AI Text Analytics* performs sentiment analysis on the comments.
+
+Users assigned the Admin app role can access detailed insights for their specific events, including:
+- Feedback submitter details
+- User comments
+- Sentiment analysis results
+- Graphical representations of sentiment trends
+
+Application secrets are securely managed with Azure Key Vault, and inter-service communication is handled via Managed Identity.
+
+### User feedback flow 
 https://github.com/username/repo-name/blob/main/docs/demo.mp4
+
+# Admin feedback flow 
+
+
+
 
 
 
