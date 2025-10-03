@@ -1,0 +1,108 @@
+@page 
+@model feedbackApp.Pages.FeedbackModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="container mt-5 p-4 rounded shadow-lg bg-gradient" style="background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); max-width: 650px;">
+    <h2 class="mb-4 text-center fw-bold text-primary">@Model.CurrentEvent?.EventName</h2>
+    <form method="post" class="p-3">
+        <input type="hidden" asp-for="UserFeedback.EventId" />
+        <div class="mb-4">
+            <label asp-for="UserFeedback.Name" class="form-label fw-semibold text-secondary">Name</label>
+            <input asp-for="UserFeedback.Name" class="form-control border-2 border-primary-subtle shadow-sm" placeholder="Your name is optional." />
+        </div>
+
+        <div class="form-check form-switch mb-4">
+            <input asp-for="UserFeedback.showNamePublicly" type="checkbox" class="form-check-input" id="showNamePublicly" style="background-color: #a5b4fc;" />
+            <label asp-for="UserFeedback.showNamePublicly" class="form-check-label text-info" for="showNamePublicly">
+                Do you want to agree to post publicly?
+            </label>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="UserFeedback.Comments" class="form-label fw-semibold text-secondary">Please let us know your feedback</label>
+            <textarea asp-for="UserFeedback.Comments" class="form-control border-2 border-info shadow-sm" placeholder="Write your comments here..." rows="4"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="UserFeedback.Rating" class="form-label fw-semibold text-secondary" style="cursor:pointer;">Don't forget to rate us. Your feedback is valuable to us.</label>
+            <div class="d-flex flex-wrap gap-3 rating-options justify-content-center">
+                @foreach(var rating in Model.Ratings)
+                {
+                    <div class="form-check form-check-inline position-relative">
+                        <input type="radio" asp-for="UserFeedback.Rating" value="@rating.Value" id="rating_@rating.Value" class="form-check-input rating-radio" />
+                        <label for="rating_@rating.Value" class="form-check-label rating-label px-3 py-2 rounded-3"
+                               style="background: linear-gradient(90deg, #a5b4fc 0%, #fbc2eb 100%); box-shadow: 0 2px 8px rgba(165,180,252,0.15);">
+                            <span style="font-size:2rem;">@rating.Emoji</span>
+                            <span class="ms-2 fw-semibold text-dark">@rating.Description</span>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-lg btn-gradient px-5 py-2 fw-bold shadow"
+                style="background: linear-gradient(90deg, #6366f1 0%, #f472b6 100%); color: white; border: none;">
+                Submit
+            </button>
+        </div>
+    </form>
+
+    <partial name="_ValidationScriptsPartial" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+</div>
+
+<style>
+.rating-radio {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.rating-label {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    font-size: 1.25rem;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #a5b4fc 0%, #fbc2eb 100%);
+}
+
+.rating-label:hover,
+.rating-radio:focus + .rating-label {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(99,102,241,0.15);
+    border-color: #6366f1;
+    z-index: 2;
+}
+
+.rating-radio:checked + .rating-label {
+    background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%);
+    border-color: #f472b6;
+    color: #4f46e5;
+    box-shadow: 0 0 0 4px #fbc2eb55;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(90deg, #f472b6 0%, #6366f1 100%);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(99,102,241,0.18);
+}
+
+@@media (max-width: 600px) {
+    .container.mt-5 {
+        margin-top: 1rem !important;
+        padding: 1rem !important;
+    }
+    .rating-label {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    .btn-gradient {
+        padding: 0.5rem 2rem !important;
+        font-size: 1rem !important;
+    }
+}
+</style>

@@ -1,0 +1,101 @@
+@page "{eventShortName}"
+@model AdminDashboardModel
+@{
+    Layout = "_Layout";
+}
+<div class="container-fluid px-2 px-md-5">
+    <div class="card shadow mb-4">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0">@Model.Feedbacks.FirstOrDefault().EventName Event Detailed Feedback</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Event</th>
+                            <th>User</th>
+                            <th>Comments</th>
+                            <th>Sentiments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var data in Model.Feedbacks)
+                        {
+                            <tr>
+                                <td class="text-break">@data.EventName</td>
+                                <td class="text-break">@(data.showNamePublicly == true ? @data.Name : "Anonymous")</td>
+                                <td class="text-break">@data.Comments</td>
+                                <td>
+                                    <span class="badge rounded-pill 
+                                        @(data.Sentiment == "Positive" ? "bg-success" : data.Sentiment == "Negative" ? "bg-danger" : "bg-warning text-dark")">
+                                        @data.Sentiment
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @if(Model.Feedbacks != null && Model.Feedbacks.Any())
+    {
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0">Sentiment Chart</h3>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+                <div style="max-width: 100%; width: 350px;">
+                    <canvas id="sentimentChart" width="350" height="350" ></canvas>
+                </div>
+            </div>
+        </div>
+        @section Scripts {
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+            <script>
+                var context = document.getElementById('sentimentChart').getContext('2d');
+                var chart = new Chart(context, {
+                    type : 'pie',
+                    data:{
+                        labels : ['Positive', 'Negative', 'Neutral'],
+                        datasets : [{
+                            label : 'User Sentiments',
+                            data :[
+                                @Model.Feedbacks.Count(x=>x.Sentiment=="Positive"),
+                                @Model.Feedbacks.Count(x=>x.Sentiment=="Negative"),
+                                @Model.Feedbacks.Count(x=>x.Sentiment=="Neutral"),
+                            ],
+                            backgroundColor : ['#1e9f0b','#f44336','#a5af4c' ]
+                        }]
+                    },
+                    options : {
+                        responsive : false
+                    }
+                });
+            </script>
+            <style>
+                @@media (max-width: 600px) {
+                    .card-body.d-flex.justify-content-center > div {
+                        width: 100% !important;
+                        min-width: 0 !important;
+                    }
+                    #sentimentChart {
+                        width: 100% !important;
+                        height: 100% !important;
+                       
+                    }
+                }
+                #sentimentChart:hover {
+                    transform: none !important;
+                    box-shadow: none !important;
+                    z-index: auto !important;
+                }
+            </style>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning mt-4">No feedback available to generate charts</div>
+    }
+</div>

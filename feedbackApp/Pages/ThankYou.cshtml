@@ -1,0 +1,35 @@
+@page "{eventId}"
+@model feedbackApp.Pages.ThankYouModel
+@{
+    Layout = "_Layout";
+}
+<div class="container d-flex flex-column justify-content-center align-items-center py-5" style="min-height: 60vh;">
+    <div class="card shadow-lg p-4 mb-4" style="max-width: 500px; width: 100%; background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);">
+        <div class="card-body text-center">
+            <h2 class="fw-bold text-success mb-3">Thank you for your feedback!</h2>
+            <p class="lead text-secondary mb-4">We appreciate your input and support for our event.</p>
+            <hr />
+            <p class="mb-2">Click below to view the current average ratings for the event</p>
+            <a asp-page="eventRating" asp-route-id="@Model.EventId" class="btn btn-gradient px-4 py-2 fw-semibold shadow" style="background: linear-gradient(90deg, #6366f1 0%, #f472b6 100%); color: white; border: none;">Click Here</a>
+        </div>
+    </div>
+    <style>
+        @@media (max-width: 600px) {
+            .card {
+                padding: 1rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            .btn-gradient {
+                padding: 0.5rem 1.5rem !important;
+                font-size: 1rem !important;
+            }
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #f472b6 0%, #6366f1 100%);
+            color: #fff;
+            box-shadow: 0 6px 24px rgba(99,102,241,0.18);
+        }
+    </style>
+</div>
