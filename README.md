@@ -45,7 +45,12 @@ This project was developed to gain **hands-on experience in Azure PaaS services,
 > 💡 **Inspiration**: Feedbacks for events and sessions are often collected using Google Forms or manually created surveys.
 > I wanted to build on that idea and create a modern, secure, cloud-native application hosted on Azure that not only collects feedback but also persists it for future reference.
 
+
 ## 🧱 Project Architecture
+
+# User feedback flow 
+https://github.com/username/repo-name/blob/main/docs/demo.mp4
+
 
 
 
