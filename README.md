@@ -2,7 +2,7 @@
 
 This is a **.NET 8 Razor Pages** web application, deployed on **Azure App Service (Linux)** to collect real-time feedbacks from event/session attendees.
 
-The app leverages **Azure AI Text Analytics** to perform sentiment analysis on the feedback/comments which are viewable only to events' admin.
+The app leverages **Azure AI Text Analytics** to perform sentiment analysis on the feedback/comments which are viewable only to events' admin. :bar_chart:
 Cosmos DB (SQL) is used to persist events comments and details.
 
 Additionally, all the Azure resources required to make this app work in the most realistic way and close to enterprise grade were provisioned using **bicep**.
@@ -10,7 +10,17 @@ Additionally, all the Azure resources required to make this app work in the most
 **Bonus:**  The App's UI - specifically  colors, formatting, and styling was developed with **Github Copilot**. I have used Github Copilot in **Agent, Edit, and Ask mode** 
 treating it as a peer, who can be asked questions to make better design or architecture decision.
 
+App can be accessed here - https://feedbackapp-jsdaxzya42jta.azurewebsites.net/ 
+
+## Screenshot 
+<img width="959" height="404" alt="image" src="https://github.com/user-attachments/assets/8cd04b46-06f2-48d3-8524-a7e236317727" />
+<img width="959" height="185" alt="image" src="https://github.com/user-attachments/assets/cbd51833-8f01-4424-845f-17c35b507afe" />
+<img width="818" height="457" alt="image" src="https://github.com/user-attachments/assets/94265089-fb7f-4a36-9fee-0462bd3eae47" />
+
+App demo can be looked up in [Below section] #-admin-feedback-flow #-user-feedback-flow section.
+
 ---
+
 
 ## Tech Stack
 <p>
@@ -28,11 +38,11 @@ treating it as a peer, who can be asked questions to make better design or archi
 - 🧱 **.NET 8 Razor Pages**
 - 🔐 **Azure AD Authentication** - Secure sign-in for users and admins
 - 📘 **Azure App Service** with App Settings - Hosting .NET 8 Razor Pages application
--    **Azure Cosmos DB** – Storing feedback data at scale
--   **Azure Key Vault** – Securely managing application secrets and keys
--   **Managed Identity** – Enabling secure, passwordless communication between services
+- 🪐 **Azure Cosmos DB** – Storing feedback data at scale
+- 🔑 **Azure Key Vault** – Securely managing application secrets and keys
+- 🆔 **Managed Identity** – Enabling secure, passwordless communication between services
 - ⚙️ **Bicep(IaC)** - Provisioning Azure resources as code 
-- 🤖 **Azure AI Text Analytics**  - Sentiment analysis of events feedback
+- 🧠 **Azure AI Text Analytics**  - Sentiment analysis of events feedback
 - 🧑‍⚖️ **Role-Based Access Control** - Separate user and admin role.Controlled through App roles.
   
 ## 🎯 Why This Project Was Built
@@ -59,9 +69,14 @@ Users assigned the Admin app role can access detailed insights for their specifi
 Application secrets are securely managed with Azure Key Vault, and inter-service communication is handled via Managed Identity.
 
 #### User feedback flow 
-https://github.com/username/repo-name/blob/main/docs/demo.mp4
+
+https://github.com/user-attachments/assets/83a9be22-3b15-4acd-b632-63ae5c6ae5ee
+
 
 #### Admin feedback flow 
+
+https://github.com/user-attachments/assets/aae30951-4568-4a1e-8274-722a9486f211
+
 
 ### 🔐 Authentication & Authorization
 
@@ -115,8 +130,24 @@ az keyvault set-policy \
 1. Clone the repository
 2. Restore nuget package `dotnet restore`
 3. Build solution `dotnet build`
-4. Add a file 'appsettings.Development.json' from path - and replace placeholder values with yours Azure AD & Cosmos DB connection values.
-5. Now run `dotnet run`
+4. Add a file 'appsettings.Development.json' as below and replace its placeholder values with yours Azure AD & Cosmos DB connection values.
+   ```bash
+    "CosmosDb" :{
+    "Database" : <your-cosmos-db-name>,
+    "Container": <your-container-name>,
+    "AdminContainer" : "your-admin-container-name",
+    "Endpoint" :"https://<your-cosmos-account-name>.documents.azure.com:443/"
+  },
+  "AzureAd":{
+    "Instance" : "https://login.microsoftonline.com",
+    "Domain" : <your-domain>,
+    "TenantId" : <your-tenant-id>,
+    "ClientId" : <your-azure-app-clientId>,
+    "CallbackPath" : "/signin-oidc"
+  }
+  
+   ```
+6. Now run `dotnet run`
      
  
   > [!IMPORTANT]
@@ -132,13 +163,24 @@ az keyvault set-policy \
 #### 5️⃣ Publish to Azure App Service
   1) `dotnet clean`
   2) `dotnet publish -c Release --framework net8.0`
-  3) Download **Azure App Service extension**, if not installed in VS Code
-  4) Go to **Command Palette** -> Click **Azure App Service : Deploy to web App**
-  5) Configure deployment for below settings :
+  3) Go to your Azure portal -> your app service -> Configuration and set **Start up command** : `dotnet feedbackApp.dll`
+  4) Download **Azure App Service extension**, if not installed in VS Code
+  5) Go to **Command Palette** -> Click **Azure App Service : Deploy to web App**
+  6) Configure deployment for below settings :
      - Subscription & Azure App Service path
      - Deploy Sub path : Specify publish folder path which will be used for deployment in Azure App.
+  7) To set up App settings, go to Azure Portal -> your app service -> Settings ->  Environment variables -> App Settings.
+     If appSettings.Development.json has key structure like
+     ```bash
+     "CosmosDb" : {
+     "Endpoint" : "",
+     "Container" :""
+     }
+     ```
+     then App settings will have keys likes CosmosDb_Endpoint, CosmosDb_Container. Set these value too.
+
  
-✅ After deployment, your application will be available on Azure App Service with OIDC-based authentication, Azure Cosmos DB storage, and integration with Azure Text Analytics.
+✅ After deployment, your application will be available on Azure App Service with OIDC-based authentication, Azure Cosmos DB storage, and integration with Azure Text Analytics.Azure app should be browsable now.
    
 ## 🤝 Contributing
 This is a personal project but any suggestions or recommendations are welcome.
