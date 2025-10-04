@@ -62,7 +62,7 @@ var app = builder.Build();
 var port = Environment.GetEnvironmentVariable("PORT") ?? "7081";
 
 app.Urls.Add($"http://+:{port}"); //+ allows binding to all network interfaces
-//app.Urls.Add($"http://localhost:{port}"); // Uncomment this line if you want to bind to localhost only
+// Uncomment this line if you want to bind to localhost only
 //builder.WebHost.UseUrls($"http://*:{port}", $"https://*:{port}"); // Uncomment this line if you want to bind to all network interfaces
 
 

@@ -1,0 +1,5 @@
+feedbackApp/appsettings.Development.json
+.vscode/
+bin/
+obj/
+feedbackApp/appsettings.Development.json
