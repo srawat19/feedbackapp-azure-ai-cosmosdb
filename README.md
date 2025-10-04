@@ -52,7 +52,7 @@ This project was developed to gain **hands-on experience in Azure PaaS services,
 Users authenticate via **Azure AD** and submit feedback through the **.NET 8 Razor Pages app hosted on Azure App Service**.
 Participants can view the **real-time average rating** of current events.
 
-All feedback is securely stored in *Azure Cosmos DB (NoSQL)*, while *Azure AI Text Analytics* performs sentiment analysis on the comments.
+All feedbacks are securely stored in *Azure Cosmos DB (NoSQL)*, while *Azure AI Text Analytics* performs sentiment analysis on the comments.
 
 Users assigned the Admin app role can access detailed insights for their specific events, including:
 - Feedback submitter details
@@ -66,6 +66,52 @@ Application secrets are securely managed with Azure Key Vault, and inter-service
 https://github.com/username/repo-name/blob/main/docs/demo.mp4
 
 # Admin feedback flow 
+
+🔐 Authentication & Authorization
+The web app relies on Open ID Connect(OIDC) for Authentication using Azure AD as identity provider.
+
+🧭 Azure Setup Instructions
+1️⃣ Create a Resource Group in Azure  - This will act as a unit within which all the other azure services will be placed.
+1️⃣ Provision resources required for the web application
+Run the bicep file from command terminal (Ensure bicep file is ran from the path where it exists) in VS Code as below :
+`az login' - sign in to your azure tenant.
+az bicep build --file feedback-main.bicep                                                    
+`az deployment group create --resource-group <your-resource-group-name> --parameters feedback-main.bicepparam --template-file feedback-main.bicep`
+`az keyvault set-policy --name <your-vault-name> --object-id <your-user-object-id> --secret-permissions get list`   - When running on localhost this is needed as your VS Code terminal should be able to access Azure Key Vault to get Azure Text Analytics Key value.
+
+1️⃣ Register web application 
+1. Go to **Microsoft Entra ID → App Registrations**
+2. Create an app registration with name : `feedbackapp`
+3. Under **Manage**:
+   - Click **Authentication**
+   - In `Web Redirect Uri`
+     -> add urls : 'https://feedbackapp-jsdaxzya42jta.azurewebsites.net/signin-oidc', 'http://localhost:7081/signin-oidc','https://localhost:7081/signin-oidc'
+4. Under **App Roles**:
+   - Create role : `Admin`
+   - Enable it.
+Clone the repository
+- Prepare your local environment(local system) for running the app
+    - Restore nuget package ``` bash  dotnet restore  ```
+    - Build solution ``` bash  dotnet build  ```
+    - Add a file 'appsettings.Development.json' from path - and replace placeholder values with yours to enable Azure AD & Cosmos DB connection.
+ 
+> [!IMPORTANT]
+> The port (`7281`) may vary depending on your local setup. If you plan to change to port number, ensure updating below code lines :
+> Comment line - `app.Urls.Add($"http://+:{port}");` in Program.cs  (Enable this when running or testing on Azure app Service)
+> Uncomment line : `app.Urls.Add($"http://localhost:{port}");`  (Comment this out when deploying on Azure App service)
+
+- Now run `dotnet run`
+
+
+  To publish this code on your Azure App Service, proceed with below steps :
+  1) dotnet clean
+  2) dotnet publish -c Release --framework net8.0
+  3) update 
+  
+   
+    
+
+
 
 
 
