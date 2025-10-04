@@ -1,4 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/a40b824e-fd2a-42fd-936e-38a7d054331c/resourceGroups/feedback-ai-app-rg/providers/Microsoft.Web/sites/feedbackapp-jsdaxzya42jta",
-    "appService.deploySubpath": "feedbackApp\\bin\\Release\\net8.0\\publish"
-}
