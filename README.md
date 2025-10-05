@@ -17,7 +17,7 @@ App can be accessed here - https://feedbackapp-jsdaxzya42jta.azurewebsites.net/
 <img width="959" height="185" alt="image" src="https://github.com/user-attachments/assets/cbd51833-8f01-4424-845f-17c35b507afe" />
 <img width="818" height="457" alt="image" src="https://github.com/user-attachments/assets/94265089-fb7f-4a36-9fee-0462bd3eae47" />
 
-App demo can be looked up in [Below section] #-admin-feedback-flow #-user-feedback-flow section.
+App demo can be looked up in `Project Architecture` section.
 
 ---
 
@@ -131,25 +131,26 @@ az keyvault set-policy \
 2. Restore nuget package `dotnet restore`
 3. Build solution `dotnet build`
 4. Add a file 'appsettings.Development.json' as below and replace its placeholder values with yours Azure AD & Cosmos DB connection values.
-   ```bash
-    "CosmosDb" :{
-    "Database" : <your-cosmos-db-name>,
-    "Container": <your-container-name>,
-    "AdminContainer" : "your-admin-container-name",
-    "Endpoint" :"https://<your-cosmos-account-name>.documents.azure.com:443/"
+```bash
+{
+  "CosmosDb": {
+    "Database": "<your-cosmos-db-name>",
+    "Container": "<your-container-name>",
+    "AdminContainer": "<your-admin-container-name>",
+    "Endpoint": "https://<your-cosmos-account-name>.documents.azure.com:443/"
   },
-  "AzureAd":{
-    "Instance" : "https://login.microsoftonline.com",
-    "Domain" : <your-domain>,
-    "TenantId" : <your-tenant-id>,
-    "ClientId" : <your-azure-app-clientId>,
-    "CallbackPath" : "/signin-oidc"
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com",
+    "Domain": "<your-domain>",
+    "TenantId": "<your-tenant-id>",
+    "ClientId": "<your-azure-app-clientId>",
+    "CallbackPath": "/signin-oidc"
   }
-  
-   ```
+}
+
+```
 6. Now run `dotnet run`
      
- 
   > [!IMPORTANT]
   > The port (`7281`) may vary depending on your local setup. If you plan to change the port number, ensure updating below code lines :
   ```bash
@@ -164,20 +165,22 @@ az keyvault set-policy \
   1) `dotnet clean`
   2) `dotnet publish -c Release --framework net8.0`
   3) Go to your Azure portal -> your app service -> Configuration and set **Start up command** : `dotnet feedbackApp.dll`
-  4) Download **Azure App Service extension**, if not installed in VS Code
-  5) Go to **Command Palette** -> Click **Azure App Service : Deploy to web App**
-  6) Configure deployment for below settings :
-     - Subscription & Azure App Service path
-     - Deploy Sub path : Specify publish folder path which will be used for deployment in Azure App.
-  7) To set up App settings, go to Azure Portal -> your app service -> Settings ->  Environment variables -> App Settings.
-     If appSettings.Development.json has key structure like
+  4) To **set up App settings**, go to *Azure Portal -> your app service -> Settings ->  Environment variables -> App Settings*. If appSettings.Development.json has key        structure as below :
+
      ```bash
-     "CosmosDb" : {
-     "Endpoint" : "",
-     "Container" :""
+     {
+       "CosmosDb" : {
+       "Endpoint" : "",
+       "Container" :""
+       }
      }
      ```
-     then App settings will have keys likes CosmosDb_Endpoint, CosmosDb_Container. Set these value too.
+     then App settings will have keys look like `CosmosDb_Endpoint, CosmosDb_Container`. Add all keys following a similar pattern along with their values.
+  5) Download **Azure App Service extension**, if not installed in VS Code
+  6) Go to **Command Palette** -> Click **Azure App Service : Deploy to web App**
+  7) Configure deployment for below settings :
+     - Subscription & Azure App Service path
+     - Deploy Sub path : Specify publish folder path which will be used for deployment in Azure App.
 
  
 ✅ After deployment, your application will be available on Azure App Service with OIDC-based authentication, Azure Cosmos DB storage, and integration with Azure Text Analytics.Azure app should be browsable now.
