@@ -27,7 +27,7 @@ App demo can be looked up in `Project Architecture` section.
   <img src= "https://img.shields.io/badge/C%23-003f90?style=for-the-badge" alt="C#"/>
   <img src= "https://img.shields.io/badge/.NET 8-512bd4?style=for-the-badge" alt=".NET"/>
   <img src= "https://img.shields.io/badge/Azure%20AD-1e90ff?style=for-the-badge" alt="Azure AD"/>
-  <img src= "https://img.shields.io/badge/Azure%20App%20Service-87CEFA?style=for-the-badge%22%20alt=%22Azure%20App%20Service"/>
+  <img src= "https://img.shields.io/badge/Azure%20App%20Service-87CEFA?style=for-the-badge" alt="Azure App Service"/>
   <img src= "https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge" alt="Visual Studio Code"/>
   <img src= "https://img.shields.io/badge/Azure%20AI-007FFF?style=for-the-badge" alt="Azure AI"/>
   <img src= "https://img.shields.io/badge/Azure Cosmos%20DB-007FFF?style=for-the-badge" alt="Azure Cosmos DB"/>
