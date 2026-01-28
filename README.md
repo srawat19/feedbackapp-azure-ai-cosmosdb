@@ -186,7 +186,7 @@ az keyvault set-policy \
  
 ✅ After deployment, your application will be available on Azure App Service with OIDC-based authentication, Azure Cosmos DB storage, and integration with Azure Text Analytics.Azure app should be browsable now.
 
-## Additional setups or helpful points
+#### Additional setups/helpful points
 - Installed Azure CLI vs 2.39.0 for windows. Bicep comes along with it. This way Azure CLI commands can be run from windows command prompt.
 - When running from Azure App Service, move the configurations related to Azure and cosmos to Azure App Settings. For AzureAd section in appsettings.json, thr AppSetting keys will appear like AzureAd__TenantId etc.
 - Webappservice plan we have to make kind as 'linux' and reserved as true. Kind is just like tag, only if reserved is set to true then it allocates a linux machine. Our WebApp is hosted on Linux Machine.
