@@ -185,7 +185,17 @@ az keyvault set-policy \
 
  
 ✅ After deployment, your application will be available on Azure App Service with OIDC-based authentication, Azure Cosmos DB storage, and integration with Azure Text Analytics.Azure app should be browsable now.
-   
+
+## Additional setups or helpful points
+- Installed Azure CLI vs 2.39.0 for windows. Bicep comes along with it. This way Azure CLI commands can be run from windows command prompt.
+- When running from Azure App Service, move the configurations related to Azure and cosmos to Azure App Settings. For AzureAd section in appsettings.json, thr AppSetting keys will appear like AzureAd__TenantId etc.
+- Webappservice plan we have to make kind as 'linux' and reserved as true. Kind is just like tag, only if reserved is set to true then it allocates a linux machine. Our WebApp is hosted on Linux Machine.
+- `az deployment group what-if --resource-group feedback-ai-app-rg --parameters feedback-main.bicepparam`  -> Use this cmd to identify which resources will be modified, created, deleted.
+- ***Decoding Managed Identity***
+   - Azure Web App`feedbackapp-<uniqueId>` will have managed identity enabled. If not, go to the webApp -> Settings -> Identity -> Toogle On System Managed Identity and enable it.
+   - This App will write on CosmosDB Container, hence "Cosmos DB Built-in Data Contributor" must be assigned to the WebApp Identity on the Cosmos DB Accounts IAM.
+   - Azure Key Vault will have Text Analytics API key stored as secret. Web app needs to access this secret to instantiate the TextAnalyticsClient. Go to Key Vault -> IAM -> Add Role 'Key Vault Secrets User' to the managed indetity of Web App.
+
 ## 🤝 Contributing
 This is a personal project but any suggestions or recommendations are welcome.
 
