@@ -10,7 +10,8 @@ Additionally, all the Azure resources required to make this app work in the most
 **Bonus:**  The App's UI - specifically  colors, formatting, and styling was developed with **Github Copilot**. I have used Github Copilot in **Agent, Edit, and Ask mode** 
 treating it as a peer, who can be asked questions to make better design or architecture decision.
 
-App can be accessed here - https://feedbackapp-jsdaxzya42jta.azurewebsites.net/  *If this is not accessible anymore, I may have removed my Pay-by-go subscription due to incurring costs. Hope you understand!*
+App can be accessed here - https://feedbackapp-jsdaxzya42jta.azurewebsites.net/  
+*If this is not accessible anymore, I may have removed my Pay-by-go subscription due to incurring costs. Hope you understand!*
 
 ## Screenshot 
 <img width="959" height="404" alt="image" src="https://github.com/user-attachments/assets/8cd04b46-06f2-48d3-8524-a7e236317727" />
